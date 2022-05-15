@@ -1,16 +1,16 @@
 {
-    "name": "Products Management App",
-    "type": "project",
-    "autoload": {
-        "psr-4": {
-            "App\\": "app/"
-        }
-    },
-    "authors": [
-        {
-            "name": "Nizigama jean davy",
-            "email": "jedavy.n@gmail.com"
-        }
-    ],
-    "require": {}
+  "name": "davy/products-management-app",
+  "type": "project",
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Nizigama jean davy",
+      "email": "jedavy.n@gmail.com"
+    }
+  ],
+  "require": {}
 }

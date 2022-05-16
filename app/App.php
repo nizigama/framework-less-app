@@ -32,7 +32,7 @@ class App
 
         register_shutdown_function(function () use ($errorFile) {
 
-            if (count($err = error_get_last()) > 0) {
+            if (!is_null($err = error_get_last())) {
 
                 $timestamp = (new DateTime())->format("Y-m-d, H:i:s");
                 $type = $err['type'];

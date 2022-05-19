@@ -2,6 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Routing\Router;
+use App\Http\Router;
 
 $router = Router::getInstance();

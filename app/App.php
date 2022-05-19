@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App;
 
-use App\Routing\Router;
+use App\Http\Router;
 use DateTime;
 
 class App

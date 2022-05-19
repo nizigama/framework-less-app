@@ -4,17 +4,25 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Routing\Router;
 use DateTime;
 
 class App
 {
     public const VERSION = 1.0;
+    public Router $router;
 
     public function __construct(string $environment = "development")
     {
         // connect to database
+        $this->router = Router::getInstance();
 
         $this->errorLogging($environment);
+    }
+
+    public function run()
+    {
+        $this->router->resolve();
     }
 
     private function errorLogging(string $environment): void
@@ -33,7 +41,6 @@ class App
         register_shutdown_function(function () use ($errorFile) {
 
             if (!is_null($err = error_get_last())) {
-
                 $timestamp = (new DateTime())->format("Y-m-d, H:i:s");
                 $type = $err['type'];
                 $line = $err['line'];

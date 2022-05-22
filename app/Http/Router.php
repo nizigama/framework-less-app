@@ -29,7 +29,7 @@ class Router
 
     /**
      * @param string $path
-     * @param array<string, array<class-string, string>> $handler
+     * @param closure | array<class-string, string> $handler
      */
     public function get($path, $handler): self
     {
@@ -39,7 +39,7 @@ class Router
 
     /**
      * @param string $path
-     * @param array<string, array<class-string, string>> $handler
+     * @param closure | array<class-string, string> $handler
      */
     public function post($path, $handler): self
     {
@@ -49,7 +49,7 @@ class Router
 
     /**
      * @param string $path
-     * @param array<string, array<class-string, string>> $handler
+     * @param closure | array<class-string, string> $handler
      */
     public function put($path, $handler): self
     {
@@ -59,7 +59,7 @@ class Router
 
     /**
      * @param string $path
-     * @param array<string, array<class-string, string>> $handler
+     * @param closure | array<class-string, string> $handler
      */
     public function delete($path, $handler): self
     {
@@ -67,38 +67,51 @@ class Router
         return $this;
     }
 
-    public function resolve()
+    public function resolve(Request $request)
     {
         $requestUri = explode("?", $_SERVER["REQUEST_URI"]);
         $currentPath = $requestUri[0];
-        $queryString = count($requestUri) > 1 ? explode("?", $_SERVER["REQUEST_URI"])[1] : "";
         $requestMethod = strtolower($_SERVER["REQUEST_METHOD"]);
         $handler = $this->routes[$requestMethod][$currentPath];
-
-        parse_str($queryString ?? "", $queryStrings);
 
         if (is_null($handler)) {
             echo "Route not found";
             return;
         }
 
-        if (count($handler) != 2) {
+        if (!$this->validHandler($handler)) {
             echo "Invalid handler";
             return;
         }
 
-        if (!class_exists($handler[0])) {
-            echo "Controller not found";
+        if (is_callable($handler)) {
+            call_user_func($handler, [$request, ...$request->queryValues]);
             return;
+        }
+
+        call_user_func_array([new $handler[0](), $handler[1]], [$request, ...$request->queryValues]);
+    }
+
+    // validate route handler
+    private function validHandler($handler): bool
+    {
+
+        if (is_callable($handler)) {
+            return true;
+        }
+
+        if (count($handler) != 2) {
+            return false;
+        }
+
+        if (!class_exists($handler[0])) {
+            return false;
         }
 
         if (!method_exists($handler[0], $handler[1])) {
-            echo "Controller method not found";
-            return;
+            return false;
         }
 
-        $parameters = array_values($queryStrings);
-
-        call_user_func_array([new $handler[0](), $handler[1]], $parameters);
+        return true;
     }
 }

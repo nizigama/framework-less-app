@@ -67,6 +67,12 @@ class Router
         return $this;
     }
 
+    public function loadRoutes(): self
+    {
+        require_once __DIR__ . '/../routes.php';
+        return $this;
+    }
+
     public function resolve(Request $request)
     {
         $requestUri = explode("?", $_SERVER["REQUEST_URI"]);

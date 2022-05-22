@@ -16,7 +16,8 @@ class App
 
     public function __construct(string $environment = "development")
     {
-        // connect to database
+        // connect to database and create models
+        // create response object
         $this->router = Router::getInstance();
         $this->request = Request::getInstance();
 
@@ -25,7 +26,7 @@ class App
 
     public function run()
     {
-        $this->router->resolve($this->request);
+        $this->router->loadRoutes()->resolve($this->request);
     }
 
     private function errorLogging(string $environment): void

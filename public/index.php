@@ -8,6 +8,4 @@ use App\App;
 
 $app = new App();
 
-require_once __DIR__ . '/../app/routes.php';
-
 $app->run();

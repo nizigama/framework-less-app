@@ -24,10 +24,8 @@ class DB
         $pass = Config::getEnv("DB_PASSWORD");
 
         try {
-
             $this->db = new PDO("$driver:host=$host;port=$port;dbname=$database", $user, $pass, []);
         } catch (PDOException $ex) {
-
             $logger->log($ex->getMessage(), (string)$ex->getCode(), __LINE__);
             throw new PDOException("Failed to connect to db", (int)$ex->getCode());
         }

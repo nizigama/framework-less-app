@@ -12,5 +12,7 @@
       "email": "jedavy.n@gmail.com"
     }
   ],
-  "require": {}
+  "require": {
+    "vlucas/phpdotenv": "^5.4"
+  }
 }

@@ -1,4 +1,5 @@
 /vendor/*
 /logs/development/errors*
 /logs/production/errors*
+/logs/app.log
 .env

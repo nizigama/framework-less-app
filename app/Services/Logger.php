@@ -37,7 +37,7 @@ class Logger
         fclose($errorFile);
     }
 
-    public function catch(string $environment): self
+    public function catch(string $environment = "development"): self
     {
         $errorFile = fopen(dirname(__DIR__) .  "/../logs/" . $environment . "/errors.log", "a+");
 

@@ -14,7 +14,7 @@ class Response
         self::setHeader(["Content-Type" => "application/json"]);
     }
 
-    public static function response(array $data, array $headers = [], int $statusCode = self::OK)
+    public static function response(mixed $data, array $headers = [], int $statusCode = self::OK)
     {
         self::json();
 

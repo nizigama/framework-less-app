@@ -34,6 +34,11 @@ class Request
         return self::$instance;
     }
 
+    public function data(): array
+    {
+        return $this->parseRequestBodyToArray();
+    }
+
     private function parseRequestHeaders(): array
     {
         return array_filter($_SERVER, function ($k) {
@@ -84,6 +89,32 @@ class Request
         return $requestBody;
     }
 
+    private function parseRequestBodyToArray(): array
+    {
+        $method = $_SERVER["REQUEST_METHOD"];
+        $requestBody = [];
+
+        switch ($method) {
+            case 'GET':
+                $this->readRequestBodyToArray($_GET, $requestBody);
+                break;
+            case 'POST':
+                $this->readRequestBodyToArray($_POST, $requestBody);
+                break;
+            case 'PUT':
+                $this->readRequestBodyToArray($_POST, $requestBody);
+                break;
+            case 'DELETE':
+                $this->readRequestBodyToArray($_GET, $requestBody);
+                break;
+            default:
+                $this->readRequestBodyToArray($_GET, $requestBody);
+                break;
+        }
+
+        return $requestBody;
+    }
+
     private function readRequestBody(array $requestData, stdClass &$requestBody): stdClass
     {
 
@@ -91,5 +122,13 @@ class Request
             $requestBody->$key = $value;
         }
         return $requestBody;
+    }
+
+    private function readRequestBodyToArray(array $requestData, array &$requestBody)
+    {
+
+        foreach ($requestData as $key => $value) {
+            $requestBody[$key] = $value;
+        }
     }
 }

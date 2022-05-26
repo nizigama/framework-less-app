@@ -6,7 +6,8 @@ namespace App\Services;
 
 use App\Traits\ValidationRules;
 
-// This validation class should be complex enough with different methods to validate whether the data passed in has the expected structure
+// This validation class should be complex enough with different methods to validate whether
+// the data passed in has the expected structure
 // whether the rules array also has a valid structure
 // to prevent runtime errors when the incoming data or rules aren't what the make method expects
 class Validation

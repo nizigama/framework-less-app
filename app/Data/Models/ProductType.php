@@ -18,10 +18,10 @@ final class ProductType extends Model
         $this->name = $name;
     }
 
-    /** 
+    /**
      * Get all product type records from the database
-     * 
-     * @return ProductType[] 
+     *
+     * @return ProductType[]
      */
     public static function all()
     {
@@ -34,9 +34,9 @@ final class ProductType extends Model
         return $results;
     }
 
-    /** 
+    /**
      * Get a product type record from the database by its ID
-     * 
+     *
      */
     public static function findByID(int $id): ?ProductType
     {

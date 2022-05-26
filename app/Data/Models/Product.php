@@ -21,8 +21,18 @@ final class Product extends Model
     protected ?float $width = null;
     protected ?float $length = null;
 
-    public function __construct(int $id, string $name, string $sku, float $price, int $typeID, float $size = null, float $weight = null, float $height = null, float $width = null, float $length = null)
-    {
+    public function __construct(
+        int $id,
+        string $name,
+        string $sku,
+        float $price,
+        int $typeID,
+        float $size = null,
+        float $weight = null,
+        float $height = null,
+        float $width = null,
+        float $length = null
+    ) {
         $this->id = $id;
         $this->name = $name;
         $this->sku = $sku;
@@ -49,9 +59,30 @@ final class Product extends Model
         return self::readable($results);
     }
 
-    private static function createType(string $id, string $name, string $sku, string $price, string $typeID, string $size = null, string $weight = null, string $height = null, string $width = null, string $length = null)
-    {
-        return new self(intval($id), $name, $sku, floatval($price), intval($typeID), floatval($size), floatval($weight), floatval($height), floatval($width), floatval($length));
+    private static function createType(
+        string $id,
+        string $name,
+        string $sku,
+        string $price,
+        string $typeID,
+        string $size = null,
+        string $weight = null,
+        string $height = null,
+        string $width = null,
+        string $length = null
+    ) {
+        return new self(
+            intval($id),
+            $name,
+            $sku,
+            floatval($price),
+            intval($typeID),
+            floatval($size),
+            floatval($weight),
+            floatval($height),
+            floatval($width),
+            floatval($length)
+        );
     }
 
     private static function readable(array $products): array

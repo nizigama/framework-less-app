@@ -18,14 +18,16 @@ class Controller
         Response::response(["status" => "Up and running", "version" => App::VERSION]);
     }
 
-    // public function example_with_validation(Request $request, ...$queryParameters)
-    // {
-        // $validation = Validation::make($request->data(), [
-        //     "input" => ["rule1", "rule2"]
-        // ]);
+    /*
+    public function example_with_validation(Request $request, ...$queryParameters)
+    {
+        $validation = Validation::make($request->data(), [
+            "input" => ["rule1", "rule2"]
+        ]);
 
-        // if ($validation->failed) {
-        //  Response::response(["errors" => $validation->errorMessages],[],Response::BAD_REQUEST);
-        // }
-    // }
+        if ($validation->failed) {
+         Response::response(["errors" => $validation->errorMessages],[],Response::BAD_REQUEST);
+        }
+    }
+    */
 }

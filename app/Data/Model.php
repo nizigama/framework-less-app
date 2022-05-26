@@ -9,11 +9,10 @@ use PDO;
 
 abstract class Model
 {
-    protected PDO $db;
+    protected static PDO $db;
 
-    public function __construct()
+    public static function loadDB(Logger $logger)
     {
-        $logger = Logger::getInstance()->catch();
-        $this->db = DB::getInstance($logger)->getDB();
+        self::$db = DB::getInstance($logger)->getDB();
     }
 }

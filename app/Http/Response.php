@@ -12,6 +12,7 @@ class Response
     private static function json()
     {
         self::setHeader(["Content-Type" => "application/json"]);
+        self::setHeader(["Access-Control-Allow-Origin" => "*"]);
     }
 
     public static function response(mixed $data, array $headers = [], int $statusCode = self::OK)

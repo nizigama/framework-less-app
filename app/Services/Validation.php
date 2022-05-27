@@ -53,10 +53,10 @@ class Validation
         $errorMessages = [];
 
         foreach ($rules as $key => $validations) {
-            $dataToValidate = $data[$key];
+            $dataToValidate = array_key_exists($key, $data) ? $data[$key] : "";
 
             foreach ($validations as $validation) {
-                $result = call_user_func_array([Validation::class, $validation], [$dataToValidate]);
+                $result = call_user_func_array([Validation::class, $validation], [$dataToValidate, $key]);
                 if (!is_bool($result) && !is_null($result)) {
                     array_push($errorMessages, $result);
                 }

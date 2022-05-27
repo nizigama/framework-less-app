@@ -117,7 +117,10 @@ class Request
 
     private function readRequestBody(array $requestData, stdClass &$requestBody): stdClass
     {
-
+        if ($this->headers["HTTP_CONTENT_TYPE"] === "application/json") {
+            $input = file_get_contents('php://input');
+            $requestData = is_string($input) ? json_decode($input, true) : [];
+        }
         foreach ($requestData as $key => $value) {
             $requestBody->$key = $value;
         }
@@ -126,7 +129,10 @@ class Request
 
     private function readRequestBodyToArray(array $requestData, array &$requestBody)
     {
-
+        if ($this->headers["HTTP_CONTENT_TYPE"] === "application/json") {
+            $input = file_get_contents('php://input');
+            $requestData = is_string($input) ? json_decode($input, true) : [];
+        }
         foreach ($requestData as $key => $value) {
             $requestBody[$key] = $value;
         }

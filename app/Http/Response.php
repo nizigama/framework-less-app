@@ -4,15 +4,18 @@ declare(strict_types=1);
 
 namespace App\Http;
 
+use App\Services\Config;
+
 class Response
 {
     public const BAD_REQUEST = 400;
+    public const INTERNAL_SERVER_ERROR = 500;
     public const OK = 200;
 
     private static function json()
     {
-        self::setHeader(["Content-Type" => "application/json"]);
-        self::setHeader(["Access-Control-Allow-Origin" => "*"]);
+        self::setHeader(["Content-Type" => "application/json; charset=utf-8"]);
+        self::setHeader(["Access-Control-Allow-Origin" => Config::getEnv("CORS_ORIGIN")]);
     }
 
     public static function response(mixed $data, array $headers = [], int $statusCode = self::OK)

@@ -14,7 +14,7 @@ trait ValidationRules
         if (is_string($value)) {
             $value = trim($value);
         }
-        return empty($value) !== "" ? null : "$field cannot be empty";
+        return !empty($value) ? null : "$field cannot be empty";
     }
 
     protected static function numeric(mixed $value, string $field): ?string

@@ -9,6 +9,7 @@ use App\Http\Router;
 $router = Router::getInstance();
 
 
+$router->get("/", [Controller::class, "index"]);
 
 // API endpoints
 $router->get("/api", [Controller::class, "index"]);

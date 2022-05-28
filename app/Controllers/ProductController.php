@@ -55,4 +55,26 @@ class ProductController
 
         Response::response(["productID" => $productID]);
     }
+
+    public function destroy(Request $request, ...$queryParameters)
+    {
+
+        $validation = Validation::make($request->data(), [
+            "productIDs" => ["required", "arrayOfNumbers", "productsExist"]
+        ]);
+
+        if ($validation->failed) {
+            Response::response(["errors" => $validation->errorMessages], [], Response::BAD_REQUEST);
+            return;
+        }
+
+        $deleted = Product::deleteByIDs($request->body->productIDs);
+
+        if (!$deleted) {
+            Response::response(["message" => "Failed to delete products"], [], Response::INTERNAL_SERVER_ERROR);
+            return;
+        }
+
+        Response::response(["message" => "Deleted products successfuly"]);
+    }
 }

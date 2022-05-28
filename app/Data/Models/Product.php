@@ -91,6 +91,38 @@ final class Product extends Model
         return $results > 0 ? true : false;
     }
 
+    /**
+     * @return Product[]
+     */
+    public static function getProductsByIDs(array $IDs)
+    {
+
+        $ids = "(" . implode(",", $IDs) . ")";
+
+        $stmt = self::$db->prepare("SELECT * FROM Product where id IN $ids");
+
+        $stmt->execute();
+
+        $results = $stmt->fetchAll(PDO::FETCH_FUNC, [__CLASS__, "createType"]);
+
+        return self::readable($results);
+    }
+
+
+    public static function deleteByIDs(array $IDs): bool
+    {
+
+        $ids = "(" . implode(",", $IDs) . ")";
+
+        $stmt = self::$db->prepare("DELETE FROM Product where id IN $ids");
+
+        $stmt->execute();
+
+        $results = $stmt->rowCount();
+
+        return $results === count($IDs) ? true : false;
+    }
+
     private static function createType(
         string $id,
         string $name,

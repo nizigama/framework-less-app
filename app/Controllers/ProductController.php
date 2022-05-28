@@ -34,11 +34,11 @@ class ProductController
             "sku" => ["required", "uniqueSku"],
             "price" => ["required", "numeric"],
             "typeID" => ["required", "numeric", "typeExists"],
-            "size" => ["required", "numeric"],
-            "height" => ["required", "numeric"],
-            "weight" => ["required", "numeric"],
-            "length" => ["required", "numeric"],
-            "width" => ["required", "numeric"],
+            "size" => ["numeric"],
+            "height" => ["numeric"],
+            "weight" => ["numeric"],
+            "length" => ["numeric"],
+            "width" => ["numeric"],
         ]);
 
         if ($validation->failed) {

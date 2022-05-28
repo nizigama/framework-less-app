@@ -52,13 +52,14 @@ class Validation
 
         $errorMessages = [];
 
-        foreach ($rules as $key => $validations) {
+        foreach ($rules as $key => $validationRules) {
             $dataToValidate = array_key_exists($key, $data) ? $data[$key] : "";
 
-            foreach ($validations as $validation) {
-                $result = call_user_func_array([Validation::class, $validation], [$dataToValidate, $key]);
+            foreach ($validationRules as $validationRule) {
+                $result = call_user_func_array([Validation::class, $validationRule], [$dataToValidate, $key]);
                 if (!is_bool($result) && !is_null($result)) {
                     array_push($errorMessages, $result);
+                    break;
                 }
             }
         }

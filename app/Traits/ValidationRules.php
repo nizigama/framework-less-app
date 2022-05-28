@@ -30,9 +30,7 @@ trait ValidationRules
         }
 
         foreach ($value as $item) {
-
             if (!is_numeric($item)) {
-
                 return "$item is not a valid numeric value";
             }
         }

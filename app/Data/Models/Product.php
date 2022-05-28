@@ -101,8 +101,8 @@ final class Product extends Model
 
         // I know this is not secure but since these IDs have passed through multiple validations
         // i consider them safe at this point
-        // The reason why i passed them directly to the query was 
-        // because i didn't want to loop through them all 
+        // The reason why i passed them directly to the query was
+        // because i didn't want to loop through them all
         // which wouldn't be efficient regarding the performance and usage of resources
         $stmt = self::$db->prepare("SELECT * FROM Product where id IN $ids");
 
@@ -121,8 +121,8 @@ final class Product extends Model
 
         // I know this is not secure but since these IDs have passed through multiple validations
         // i consider them safe at this point
-        // The reason why i passed them directly to the query was 
-        // because i didn't want to loop through them all 
+        // The reason why i passed them directly to the query was
+        // because i didn't want to loop through them all
         // which wouldn't be efficient regarding the performance and usage of resources
         $stmt = self::$db->prepare("DELETE FROM Product where id IN $ids");
 

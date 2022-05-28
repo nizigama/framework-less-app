@@ -59,6 +59,38 @@ final class Product extends Model
         return self::readable($results);
     }
 
+    public static function createProduct(array $data): ?int
+    {
+
+        $stmt = self::$db->prepare("INSERT INTO Product (name, sku, price, typeID, size, weight, height, width, length)
+         VALUES (:name, :sku, :price, :typeID, :size, :weight, :height, :width, :length)");
+
+        $stmt->bindParam(':name', $data["name"]);
+        $stmt->bindParam(':sku', $data["sku"]);
+        $stmt->bindParam(':price', $data["price"]);
+        $stmt->bindParam(':typeID', $data["typeID"]);
+        $stmt->bindParam(':size', $data["size"]);
+        $stmt->bindParam(':weight', $data["weight"]);
+        $stmt->bindParam(':height', $data["height"]);
+        $stmt->bindParam(':width', $data["width"]);
+        $stmt->bindParam(':length', $data["length"]);
+
+        $executed = $stmt->execute();
+
+        return !$executed ? null : intval(self::$db->lastInsertId());
+    }
+
+    public static function skuAlreadyUsed(string $sku): bool
+    {
+        $stmt = self::$db->prepare("SELECT * FROM Product where sku = ?");
+
+        $stmt->execute([$sku]);
+
+        $results = $stmt->rowCount();
+
+        return $results > 0 ? true : false;
+    }
+
     private static function createType(
         string $id,
         string $name,

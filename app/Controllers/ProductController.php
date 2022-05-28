@@ -28,12 +28,31 @@ class ProductController
 
     public function store(Request $request, ...$queryParameters)
     {
+
         $validation = Validation::make($request->data(), [
-            "input" => ["rule1", "rule2"]
+            "name" => ["required"],
+            "sku" => ["required", "uniqueSku"],
+            "price" => ["required", "numeric"],
+            "typeID" => ["required", "numeric", "typeExists"],
+            "size" => ["required", "numeric"],
+            "height" => ["required", "numeric"],
+            "weight" => ["required", "numeric"],
+            "length" => ["required", "numeric"],
+            "width" => ["required", "numeric"],
         ]);
 
         if ($validation->failed) {
             Response::response(["errors" => $validation->errorMessages], [], Response::BAD_REQUEST);
+            return;
         }
+
+        $productID = Product::createProduct($request->data());
+
+        if (is_null($productID)) {
+            Response::response(["message" => "Failed to save product"], [], Response::INTERNAL_SERVER_ERROR);
+            return;
+        }
+
+        Response::response(["productID" => $productID]);
     }
 }

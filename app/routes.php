@@ -14,3 +14,4 @@ $router = Router::getInstance();
 $router->get("/api", [Controller::class, "index"]);
 $router->get("/api/products", [ProductController::class, "index"]);
 $router->get("/api/products/create", [ProductController::class, "create"]);
+$router->post("/api/products", [ProductController::class, "store"]);

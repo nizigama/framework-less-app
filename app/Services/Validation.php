@@ -40,8 +40,12 @@ class Validation
 
         $usedRules = array_unique($usedRules);
 
-        $missingRules = array_filter($usedRules, function (string $rule) {
-            return !method_exists(Validation::class, $rule);
+        // Get the methods in the validation class
+        $methods = get_class_methods(Validation::class);
+
+         // Get the rules that are not declared as methods in the Validation class
+        $missingRules = array_filter($usedRules, function (string $rule) use ($methods) {
+            return !in_array($rule, $methods);
         });
 
         if (count($missingRules) > 0) {

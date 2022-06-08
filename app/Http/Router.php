@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http;
 
+use App\Controllers\Controller;
+
 class Router
 {
     private array $routes;
@@ -114,7 +116,18 @@ class Router
             return false;
         }
 
-        if (!method_exists($handler[0], $handler[1])) {
+        $parent = class_parents($handler[0]);
+
+        // Verify that the class extends the Controller class
+        if (array_key_first($parent) != Controller::class) {
+            return false;
+        }
+
+        // Get the methods declared in the passed class
+        $methods = get_class_methods($handler[0]::class);
+
+        // Verify that the given method exists in the given Controller class
+        if (!in_array($handler[1], $methods)) {
             return false;
         }
 

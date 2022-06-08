@@ -20,5 +20,8 @@
     "platform": {
       "php": "8.0"
     }
-  }
+  },
+  "post-install-cmd": [
+    "chmod -R 777 public/"
+  ]
 }

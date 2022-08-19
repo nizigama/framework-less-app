@@ -2,7 +2,7 @@
 
 ## Description
 
-This project is the solution to the assignment given by ScandiWeb
+This project is an attempt to build a rest api app using no framework
 
 ## Requirements
 
